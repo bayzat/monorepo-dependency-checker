@@ -9,5 +9,8 @@
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
     "glob": "^7.1.2"
+  },
+  "bin": {
+    "monorepo-dependency-checker": "./bin/check.js"
   }
 }
