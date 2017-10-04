@@ -37,4 +37,6 @@ Define it as a script in your monorepo root `package.json`:
 }
 ```
 
-and then run as `npm run check-dependencies` or `yarn run check-dependencies`
+and then run as `npm run check-dependencies` or `yarn run check-dependencies`.
+
+You can also use it manually by running `./node_modules/.bin/monorepo-dependency-checker <monorepo-dir> [app-dir]`. The `app-dir` parameter is optional but it can be useful for you to check if your app uses the same versions of dependencies as you use in monorepo.

@@ -7,12 +7,12 @@ const
     fs = require('fs'),
     path = require('path')
 let
-    monorepoDir
+    monorepoDir, appDir
 
 commander
-    .arguments('<monorepo-dir>')
+    .arguments('<monorepo-dir> [app-dir]')
     .action((...args) => {
-        [monorepoDir] = args
+        [monorepoDir, appDir] = args
     })
     .parse(process.argv)
 
@@ -27,16 +27,31 @@ if (!fs.existsSync(monorepoDir)) {
     process.exit(1)
 }
 
-const differences = comparePackageJsons(loadMonorepoPackageJsons(monorepoDir))
+if (appDir) {
+    appDir = path.resolve(appDir)
+
+    if (!fs.existsSync(appDir)) {
+        console.error('  error: `app-dir\' has to exist')
+        process.exit(1)
+    }
+}
+
+const packageJsons = loadMonorepoPackageJsons(monorepoDir)
+
+if (appDir) {
+    packageJsons.push(require(path.join(appDir, 'package.json')))
+}
+
+const differences = comparePackageJsons(packageJsons)
 
 if (differences.length === 0) {
     console.log(chalk.green('All versions are ok!'))
 } else {
-    console.log(chalk.red('There are used different versions of those dependencies:'))
+    console.log(chalk.red('Found different versions of dependencies being used:'))
     differences.forEach((dependency) => {
         console.log(chalk.red(`- ${dependency.name}`))
         dependency.versions.forEach((version) => {
-            console.log(chalk.red(`\t${version.version} by ${version.where.join(', ')}`))
+            console.log(chalk.red(`\t${chalk.bold(version.version)} by ${version.where.join(', ')}`))
         })
     })
     process.exit(1)
