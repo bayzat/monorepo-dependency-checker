@@ -2,9 +2,11 @@
 
 Check for consistent usage of version across the monorepo packages.
 
+It will also check that all monorepo packages have the version which is defined in `lerna.json` and that they are addressed by this version also by other packages. It ensures that bootstrapping in fixed/locked version mode works properly.
+
 ## Prerequisites
 
-This tool assumes that you use [Lerna](https://lernajs.io/) for the monorepo multiple package management.
+This tool assumes that you use [Lerna](https://lernajs.io/) for the monorepo multiple package management with fixed/locked version mode.
 
 ## Installing
 

@@ -1,6 +1,6 @@
 {
   "name": "monorepo-dependency-checker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Check for consistent usage of version across the monorepo packages",
   "main": "bin/check.js",
   "author": "Jiří Prokop <jprokop@synaptiko.cz>",
